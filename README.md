@@ -32,13 +32,16 @@ Docker images are the basis of containers. Images are read-only, while container
 [https://docs.docker.com/terms/image/](https://docs.docker.com/terms/image/)
 
 
-## How to use this image?
+### How to use this image?
 
 ### Data storage
 This image is configured (in `hdfs-site.xml`) to store HDFS data at the following locations: `file:///data/dfs/data` (for DataNode), `file:///data/dfs/name` (for NameNode), and `file:///data/dfs/namesecondary` (for SecondaryNameNode). To enable data persistence accross HDFS restarts, the data should be stored outside Docker. In the examples below, a directory from the host is mounted into the container. To follow these examples, please create a local directory as follow:
 
 	mkdir -p ~/data/hadoop/hdfs
 
+### Building the image
+
+`docker build -t gelog/hadoop /path/to/project/docker-ubuntu-hadoop/2.6.0/`
 
 ### Formating the namenode (only do this step once)
 
@@ -46,6 +49,7 @@ This image is configured (in `hdfs-site.xml`) to store HDFS data at the followin
 		-v $HOME/data/hadoop/hdfs:/data \
 		gelog/hadoop hdfs namenode -format
 
+Note for Mac user: replace `$HOME` by `/Users/yourname`
 
 ### Starting the NameNode
 This command starts a container for the HDFS NameNode in the background, and starts tailing its logs.
